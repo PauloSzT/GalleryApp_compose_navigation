@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GalleryApp_compose</string>
+    <string name="home_screen">HOME_SCREEN</string>
+    <string name="gallery_screen">GALLERY_SCREEN</string>
+    <string name="camera_screen">CAMERA_SCREEN</string>
+    <string name="gallery_detail">GALLERY_DETAIL</string>
+
+    <string name="back">Back</string>
+
+
 </resources>
