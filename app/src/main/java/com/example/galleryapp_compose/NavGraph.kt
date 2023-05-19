@@ -19,6 +19,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.galleryapp_compose.ui.camera.CameraScreen
 import com.example.galleryapp_compose.ui.gallerydetail.GalleryDetailScreen
+import com.example.galleryapp_compose.ui.galleryscreen.GalleryScreen
 import com.example.galleryapp_compose.ui.navigation.BottomNavItem
 
 @Composable
@@ -32,12 +33,7 @@ fun NavigationGraph(
         modifier = modifier.fillMaxSize()
     ) {
         composable(route = BottomNavItem.Gallery.route) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Red)
-                    .clickable { navController.navigate(BottomNavItem.Detail.route) }
-            )
+            GalleryScreen(navController)
         }
         composable(route = BottomNavItem.Camera.route) {
             CameraScreen()

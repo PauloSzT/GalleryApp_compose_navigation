@@ -20,6 +20,7 @@ import com.google.accompanist.permissions.rememberPermissionState
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun CameraScreen() {
+
     val viewModel = CameraViewModel(LocalContext.current)
     Column(
         modifier = Modifier
@@ -48,7 +49,6 @@ fun CameraScreen() {
 fun CameraPermission(
     permissionState: PermissionState,
 ) {
-    val viewModel = CameraViewModel(LocalContext.current)
     PermissionRequired(
         permissionState = permissionState,
         permissionNotGrantedContent = { /* ... */ },

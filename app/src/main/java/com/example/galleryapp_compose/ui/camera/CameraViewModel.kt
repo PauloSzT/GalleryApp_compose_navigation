@@ -3,9 +3,11 @@ package com.example.galleryapp_compose.ui.camera
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import java.io.File
 import java.text.SimpleDateFormat
@@ -28,7 +30,6 @@ class CameraViewModel (private val context: Context) {
         onImageCaptured: (Uri) -> Unit,
         onError: (ImageCaptureException) -> Unit
     ) {
-        Log.wtf("paulocode", "$outputDirectory")
         val photoFile = File(
             outputDirectory,
             SimpleDateFormat(filenameFormat, Locale.US).format(System.currentTimeMillis()) + ".jpg"
@@ -44,7 +45,9 @@ class CameraViewModel (private val context: Context) {
 
             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                 val savedUri = Uri.fromFile(photoFile)
-                Log.wtf("paulocode","$savedUri")
+                val msg = "Photo capture succeeded: $savedUri"
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                Log.d("This", msg)
                 onImageCaptured(savedUri)
 
             }
