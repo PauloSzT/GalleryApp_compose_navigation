@@ -30,7 +30,6 @@ fun CameraConfig (
     val lensFacing = CameraSelector.LENS_FACING_BACK
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
-
     val preview = Preview.Builder().build()
     val previewView: PreviewView = remember { PreviewView(context) }
     val imageCapture: ImageCapture = remember { ImageCapture.Builder().build() }

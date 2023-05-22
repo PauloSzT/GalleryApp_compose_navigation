@@ -1,61 +1,51 @@
 package com.example.galleryapp_compose.ui.galleryscreen
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.VerticalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.galleryapp_compose.ui.navigation.BottomNavItem
 
-
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun GalleryScreen(
     navController: NavController
 ) {
     val viewModel = GalleryScreenViewModel(LocalContext.current)
     val photoList by viewModel.galleryScreenUiState.photoList.collectAsState()
-
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(150.dp),
-        content = {
-            if(photoList.isNotEmpty()){
-                photoList.forEach { photo ->
-                    item {
-                        Box(
-                            modifier = Modifier
-                                .padding(8.dp)
-                                .aspectRatio(1f)
-                                .clip(RoundedCornerShape(5.dp))
-                                .background(Color.Black)
-                                .clickable { navController.navigate(BottomNavItem.Detail.route) },
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            AsyncImage(
-                                model = photo.pathName,
-                                contentDescription = photo.id.toString()
-                            )
+    val photoListState = rememberPagerState {
+        Int.MAX_VALUE
+    }
+    if (photoList.isNotEmpty()) {
+        VerticalPager(
+            state = photoListState,
+            pageSpacing = 8.dp,
+            pageContent = {
+                val index = it.mod(photoList.size)
+                AsyncImage(
+                    model = photoList[index].pathName,
+                    contentDescription = null,
+                    contentScale = ContentScale.FillHeight,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clickable {
+                            navController.navigate(BottomNavItem.Detail.routeWithArgs(photoList[index].id))
                         }
-                    }
-                }
-            }else{
-                item { Text(text = "No Photos on Gallery") }
+                )
             }
-
-        }
-    )
+        )
+    } else {
+        Text(text = "No Photos on Gallery")
+    }
 }

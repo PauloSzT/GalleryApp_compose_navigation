@@ -1,7 +1,6 @@
 package com.example.galleryapp_compose.ui.gallerydetail
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.google.android.gms.maps.model.CameraPosition
@@ -21,7 +21,6 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,10 +34,10 @@ fun GalleryDetailScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .aspectRatio(1f),
-        contentAlignment = Alignment.Center
     ) {
         AsyncImage(
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillHeight,
             model = currentPhotoUrl,
             contentDescription = null
         )

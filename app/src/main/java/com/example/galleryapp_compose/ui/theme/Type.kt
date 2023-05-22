@@ -11,7 +11,7 @@ import com.example.galleryapp_compose.R
 
 val NotoSerif = FontFamily(
     Font(R.font.notoserifregular, FontWeight.Normal),
-    Font(R.font.notoserifbold, FontWeight.Bold,),
+    Font(R.font.notoserifbold, FontWeight.Bold),
     Font(R.font.notoserifitalic, FontWeight.Light, FontStyle.Italic)
 )
 

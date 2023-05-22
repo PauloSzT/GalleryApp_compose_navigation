@@ -3,13 +3,11 @@ package com.example.galleryapp_compose.ui.camera
 import android.Manifest
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionsRequired
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
@@ -21,8 +19,7 @@ fun CameraScreen() {
     val viewModel = CameraViewModel(LocalContext.current)
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(30.dp),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val multiplePermissionState = rememberMultiplePermissionsState(

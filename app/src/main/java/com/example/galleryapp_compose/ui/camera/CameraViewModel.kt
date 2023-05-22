@@ -57,7 +57,7 @@ class CameraViewModel (private val context: Context) {
 
         imageCapture.takePicture(outputOptions, executor, object: ImageCapture.OnImageSavedCallback {
             override fun onError(exception: ImageCaptureException) {
-                Log.wtf("paulocode", "Take photo error:", exception)
+                Log.d("Error", "Take photo error:", exception)
                 onError(exception)
             }
 

@@ -1,12 +1,13 @@
 package com.example.galleryapp_compose.ui.gallerydetail
 
-import android.media.ExifInterface
+
 import android.os.Environment
+import androidx.exifinterface.media.ExifInterface
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.File
 
-class GalleryDetailViewModel(val photoId: Int) {
+class GalleryDetailViewModel(private val photoId: Int) {
 
     private val currentPhotoUrl = MutableStateFlow<String?>(null)
     private val currentPhotoLatLong = MutableStateFlow<LatLng?>(null)
@@ -20,31 +21,23 @@ class GalleryDetailViewModel(val photoId: Int) {
     init {
         currentPhotoLatLong.value = getGPSCoordinates()
     }
+
     private fun getGPSCoordinates(): LatLng {
         var returnedLatLng = LatLng(0.0, 0.0)
         val file = File(folder, CHILD_ROUTE)
-            file.listFiles()?.forEachIndexed { index, file ->
-                if (index == photoId) {
-                    currentPhotoUrl.value = file.path
-                    val exifInterface = ExifInterface(file.path)
-                    val latLong = exifInterface.getLatLong()
-                    if (latLong != null) {
-                        val latitude = latLong[0].toDouble()
-                        val longitude = latLong[1].toDouble()
-                        returnedLatLng = LatLng(latitude, longitude)
-                    }
+        file.listFiles()?.forEachIndexed { index, image ->
+            if (index == photoId) {
+                currentPhotoUrl.value = image.path
+                val exifInterface = ExifInterface(image.path)
+                val latLong = exifInterface.latLong
+                if (latLong != null) {
+                    val latitude = latLong[0]
+                    val longitude = latLong[1]
+                    returnedLatLng = LatLng(latitude, longitude)
                 }
             }
-        return returnedLatLng
-    }
-
-    private fun ExifInterface.getLatLong(): FloatArray? {
-        val latLong = FloatArray(2)
-        return if (getLatLong(latLong)) {
-            latLong
-        } else {
-            null
         }
+        return returnedLatLng
     }
 
     companion object {

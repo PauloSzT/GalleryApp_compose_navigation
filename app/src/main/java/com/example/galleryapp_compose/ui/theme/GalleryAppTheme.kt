@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-
 val DarkColorPalette = darkColorScheme(
     primary = Color(0xFFAEC6FF),
     inversePrimary = Color(0xFF325CA8),

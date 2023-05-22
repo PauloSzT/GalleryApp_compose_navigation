@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.sharp.Done
+import androidx.compose.material.icons.sharp.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -46,9 +46,8 @@ fun CameraContent(
         modifier = Modifier.fillMaxSize()
     ){
         AndroidView( {previewView}, modifier = Modifier.fillMaxSize())
-
         IconButton(
-            modifier = Modifier.padding(bottom = 20.dp),
+            modifier = Modifier.padding(bottom = 100.dp),
             onClick = {
                 val mediaDir = File(Environment.getExternalStorageDirectory(), "/Pictures/Gallery_App")
                 if (!mediaDir.exists()) {
@@ -65,7 +64,7 @@ fun CameraContent(
             },
             content = {
                 Icon(
-                    imageVector = Icons.Sharp.Done,
+                    imageVector = Icons.Sharp.Star,
                     contentDescription = "Take picture",
                     tint = Color.White,
                     modifier = Modifier

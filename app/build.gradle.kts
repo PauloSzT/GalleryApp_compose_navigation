@@ -57,6 +57,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.1")
     implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation("androidx.exifinterface:exifinterface:1.3.6")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
