@@ -1,13 +1,16 @@
 package com.example.galleryapp_compose.ui.camera
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import java.io.File
 import java.text.SimpleDateFormat
@@ -17,6 +20,8 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class CameraViewModel (private val context: Context) {
+
+    private val locationManager: LocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
     val cameraUiState = CameraUiState(
         ::takePhoto
@@ -35,7 +40,20 @@ class CameraViewModel (private val context: Context) {
             SimpleDateFormat(filenameFormat, Locale.US).format(System.currentTimeMillis()) + ".jpg"
         )
 
-        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile)
+            .setMetadata(ImageCapture.Metadata().apply {
+                if (ActivityCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                }
+                val lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                this.location = lastLocation
+            }).build()
 
         imageCapture.takePicture(outputOptions, executor, object: ImageCapture.OnImageSavedCallback {
             override fun onError(exception: ImageCaptureException) {

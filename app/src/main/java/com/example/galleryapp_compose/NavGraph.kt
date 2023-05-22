@@ -1,8 +1,5 @@
 package com.example.galleryapp_compose
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -10,13 +7,14 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.galleryapp_compose.ui.camera.CameraScreen
 import com.example.galleryapp_compose.ui.gallerydetail.GalleryDetailScreen
 import com.example.galleryapp_compose.ui.galleryscreen.GalleryScreen
@@ -38,8 +36,12 @@ fun NavigationGraph(
         composable(route = BottomNavItem.Camera.route) {
             CameraScreen()
         }
-        composable(route = BottomNavItem.Detail.route) {
-            GalleryDetailScreen()
+        composable(
+            route = BottomNavItem.Detail.route,
+            arguments = listOf(navArgument("photoId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val photoId = backStackEntry.arguments?.getInt("photoId") ?: 0
+            GalleryDetailScreen(photoId = photoId)
         }
     }
 }
