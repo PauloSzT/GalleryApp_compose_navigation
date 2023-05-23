@@ -1,8 +1,8 @@
 package com.example.galleryapp_compose.ui.gallerydetail
 
-
 import android.os.Environment
 import androidx.exifinterface.media.ExifInterface
+import com.example.galleryapp_compose.ui.gallerydetail.GalleryDetailConstants.CHILD_ROUTE
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.File
@@ -38,9 +38,5 @@ class GalleryDetailViewModel(private val photoId: Int) {
             }
         }
         return returnedLatLng
-    }
-
-    companion object {
-        private const val CHILD_ROUTE = "/Pictures/Gallery_App"
     }
 }

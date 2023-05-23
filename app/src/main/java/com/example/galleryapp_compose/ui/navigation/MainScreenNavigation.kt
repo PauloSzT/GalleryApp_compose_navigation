@@ -10,4 +10,15 @@ sealed class BottomNavItem(var title: String, var icon: Int, var route: String) 
 
     object Camera : BottomNavItem("Camera", R.drawable.ic_camera, "camera")
     object Gallery : BottomNavItem("Gallery", R.drawable.ic_gallery, "gallery")
+
+    companion object {
+        fun String.title(): String {
+            return when (this) {
+                Detail.route -> Detail.title
+                Camera.route -> Camera.title
+                Gallery.route -> Gallery.title
+                else -> ""
+            }
+        }
+    }
 }
