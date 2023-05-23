@@ -22,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.example.galleryapp_compose.ui.camera.CameraConstants.CHILD_ROUTE
+import com.example.galleryapp_compose.ui.camera.CameraConstants.FILE_FORMAT
 import java.io.File
 import java.util.concurrent.Executor
 
@@ -49,12 +51,12 @@ fun CameraContent(
         IconButton(
             modifier = Modifier.padding(bottom = 100.dp),
             onClick = {
-                val mediaDir = File(Environment.getExternalStorageDirectory(), "/Pictures/Gallery_App")
+                val mediaDir = File(Environment.getExternalStorageDirectory(), CHILD_ROUTE)
                 if (!mediaDir.exists()) {
                     mediaDir.mkdirs()
                 }
                 takePhoto(
-                    "yyyy-MM-dd-HH-mm-ss-SSS",
+                    FILE_FORMAT,
                     imageCapture,
                     mediaDir,
                     context.mainExecutor,

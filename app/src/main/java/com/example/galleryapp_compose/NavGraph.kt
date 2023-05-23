@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.galleryapp_compose.NavGraphConstants.ARGUMENT_KEY
 import com.example.galleryapp_compose.ui.camera.CameraScreen
 import com.example.galleryapp_compose.ui.gallerydetail.GalleryDetailScreen
 import com.example.galleryapp_compose.ui.galleryscreen.GalleryScreen
@@ -41,9 +42,9 @@ fun NavigationGraph(
         }
         composable(
             route = BottomNavItem.Detail.route,
-            arguments = listOf(navArgument("photoId") { type = NavType.IntType })
+            arguments = listOf(navArgument(ARGUMENT_KEY) { type = NavType.IntType })
         ) { backStackEntry ->
-            val photoId = backStackEntry.arguments?.getInt("photoId") ?: 0
+            val photoId = backStackEntry.arguments?.getInt(ARGUMENT_KEY) ?: 0
             GalleryDetailScreen(photoId = photoId)
         }
     }
