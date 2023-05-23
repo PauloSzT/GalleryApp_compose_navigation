@@ -36,7 +36,8 @@ Gallery App to take photo and get location from Google Maps.
 
 3. Debug
 
-   Open emulator or android device.
+  - Open emulator or android device.
+  - Add MAPS_API_KEY (provided privately) in local.properties.
 
 ## Author
 
